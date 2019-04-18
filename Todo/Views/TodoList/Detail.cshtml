@@ -19,37 +19,41 @@
             </a>
         </li>
 
-        @foreach (var item in Model.Items)
+        @foreach (var item in Model.Items
+       .OrderBy(m => m.Importance))
+    {
+        string contextualClass;
+        switch (item.Importance)
         {
-            string contextualClass;
-            switch (item.Importance)
-            {
-                case Importance.High:
-                    contextualClass = "list-group-item-danger";
-                    break;
-                case Importance.Low:
-                    contextualClass = "list-group-item-info";
-                    break;
-                default:
-                    contextualClass = "";
-                    break;
-            }
+            case Importance.High:
+                contextualClass = "list-group-item-danger";
+                break;
+            case Importance.Low:
+                contextualClass = "list-group-item-info";
+                break;
+            case Importance.Medium:
+                contextualClass = "list-group-item-warning";
+                break;
+            default:
+                contextualClass = "";
+                break;
+        }
 
-            <li class="list-group-item @contextualClass">
-                
-                <div class="row">
+        <li class="list-group-item @contextualClass">
+
+            <div class="row">
 
                 <div class="col-md-8">
                     <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
 
                         @if (item.IsDone)
-                        {
-                            <s>@item.Title</s>
-                        }
-                        else
-                        {
-                            <text>@item.Title</text>
-                        }
+                    {
+                        <s>@item.Title</s>
+                }
+                else
+                {
+                    <text>@item.Title</text>
+            }
                     </a>
                 </div>
 
@@ -61,9 +65,9 @@
 
                     </small>
                 </div>
-                </div>
+            </div>
 
-            </li>
-        }
+        </li>
+}
     </ul>
 </div>
