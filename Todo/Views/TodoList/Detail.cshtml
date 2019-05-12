@@ -8,6 +8,18 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<script type="text/javascript">function ShowHideDiv(chkhideDone) {
+        var HideDone = document.getElementsByClass("HideDone");
+        IsDone.style.display = chkHideDone.checked ? "none" : "block";
+    }</script>
+
+<div class="hidedone" type="checkbox" id="chkHideDone" onclick="ShowHideDiv(HideDone)">
+    <label>
+        <input asp-for="HideDone" /> Hide Items Marked As Done
+    </label>
+</div>
+
+
 
 <div class="col-md-6">
 
@@ -47,8 +59,10 @@
                     <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
 
                         @if (item.IsDone)
-                    {
-                        <s>@item.Title</s>
+                        {
+                        
+                        <s class="HideDone">@item.Title</s>
+
                 }
                 else
                 {
